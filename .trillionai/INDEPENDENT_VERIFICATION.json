@@ -1,0 +1,138 @@
+{
+  "upstream_commit": "6c11c7fb22d207f685ed992d9959cb648e125046",
+  "upstream_tree": "6c11c7fb22d207f685ed992d9959cb648e125046",
+  "destination_tree": "32b8a8fcd6fadaf4568c6160a697b01b49935af3",
+  "upstream_tracked_entries": 2060,
+  "expected_source_files": 2036,
+  "verified_source_files": 2036,
+  "missing_paths": [],
+  "mismatched_paths": [],
+  "extra_paths": [],
+  "excluded_paths": [
+    {
+      "path": ".github/workflows/auto-author-assign.yml",
+      "reason": "workflow",
+      "sha": "70a135d21d5b746c65ab4bb4feabd4be586a191b"
+    },
+    {
+      "path": ".github/workflows/benchmark-on-demand.yml",
+      "reason": "workflow",
+      "sha": "d06b4df10fe3082dcf82834128502d55a7fc808f"
+    },
+    {
+      "path": ".github/workflows/benchmark-on-label.yml",
+      "reason": "workflow",
+      "sha": "31edc12f13a849668eb81610c1883e7548ac036c"
+    },
+    {
+      "path": ".github/workflows/benchmark-release.yml",
+      "reason": "workflow",
+      "sha": "5446891a7bff543bc9634da342e743effdb2915c"
+    },
+    {
+      "path": ".github/workflows/ci.yml",
+      "reason": "workflow",
+      "sha": "3af741139fc13d84e12ea93660bedacebf1d5e5e"
+    },
+    {
+      "path": ".github/workflows/clang-format.yml",
+      "reason": "workflow",
+      "sha": "14e6026fb73f521fbde7de8524069fb86108ab0b"
+    },
+    {
+      "path": ".github/workflows/codecov.yml",
+      "reason": "workflow",
+      "sha": "b17e4007939d2932aec5cc87df8d0bdc25797ac5"
+    },
+    {
+      "path": ".github/workflows/codeql-analysis.yml",
+      "reason": "workflow",
+      "sha": "11f9728ff01053dc5efb6b47b2ea00bb24c782d2"
+    },
+    {
+      "path": ".github/workflows/coverity.yml",
+      "reason": "workflow",
+      "sha": "b88a02eba3c0dec0ecb7f7c312e777666d74f4aa"
+    },
+    {
+      "path": ".github/workflows/daily.yml",
+      "reason": "workflow",
+      "sha": "2a0f8c840621d6ab079cf1f8e1aaa1114f64c267"
+    },
+    {
+      "path": ".github/workflows/external.yml",
+      "reason": "workflow",
+      "sha": "4d328f1f77dee9aa097c40adce08ef9f272ba3d5"
+    },
+    {
+      "path": ".github/workflows/major-decision-auto-approve.yml",
+      "reason": "workflow",
+      "sha": "e40be845268c9c207eba5efb8e2d19b3f3d9efa5"
+    },
+    {
+      "path": ".github/workflows/provenance-check.yml",
+      "reason": "workflow",
+      "sha": "5417137bd0245745d749706586d40f131fcec3d0"
+    },
+    {
+      "path": ".github/workflows/provenance-refresh.yml",
+      "reason": "workflow",
+      "sha": "606ff9aeef142066261f5946885a4ff16dd8b686"
+    },
+    {
+      "path": ".github/workflows/reply-schemas-linter.yml",
+      "reason": "workflow",
+      "sha": "0e20eeb06aa503e0063cb21d3adbf4f429d00291"
+    },
+    {
+      "path": ".github/workflows/reuse.yml",
+      "reason": "workflow",
+      "sha": "c4fe91d485682c947ab2a7b303f1e933715ce08f"
+    },
+    {
+      "path": ".github/workflows/scorecard.yml",
+      "reason": "workflow",
+      "sha": "17b54447406cc4aa556d579cf3c24d7505d88006"
+    },
+    {
+      "path": ".github/workflows/spell-check.yml",
+      "reason": "workflow",
+      "sha": "b39eef94a845a45c48157210e471687a07cb1a4b"
+    },
+    {
+      "path": ".github/workflows/trigger-build-release.yml",
+      "reason": "workflow",
+      "sha": "977d769db27551218ed9645aea33d4038e666d00"
+    },
+    {
+      "path": ".github/workflows/weekly.yml",
+      "reason": "workflow",
+      "sha": "b7f0f7de3f26d3f23aa1dd2b7f463265078d1d01"
+    },
+    {
+      "path": "deps/jemalloc/doc_internal/jemalloc.svg",
+      "reason": "asset",
+      "sha": "5e77327e66b14f78d0c4221979c7145f3cd0f4b5"
+    },
+    {
+      "path": "deps/lua/doc/cover.png",
+      "reason": "asset",
+      "sha": "2dbb198123f03a7250bfa57c8253739962d69afb"
+    },
+    {
+      "path": "deps/lua/doc/logo.gif",
+      "reason": "asset",
+      "sha": "2f5e4ac2e742fbb7675e739879211553758aea9c"
+    },
+    {
+      "path": "deps/lua/etc/lua.ico",
+      "reason": "asset",
+      "sha": "ccbabc4e2004683f29598a991006d7caff6d837d"
+    }
+  ],
+  "truncated": [
+    false,
+    false
+  ],
+  "actions_run": 44665632453
+}
