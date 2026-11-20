@@ -1,0 +1,66 @@
+name: Import pinned reference
+on: push
+permissions:
+  contents: write
+jobs:
+  import:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Bulk transfer and remote verification
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch --no-tags --depth=1 https://github.com/valkey-io/valkey.git 6c11c7fb22d207f685ed992d9959cb648e125046
+          export UPSTREAM=$(git rev-parse FETCH_HEAD)
+          python3 - <<'PY'
+          import subprocess as s, json, os
+          def git(*a): return s.check_output(['git',*a])
+          def tree(ref):
+              result={}
+              for record in git('ls-tree','-rz',ref).split(b'\0'):
+                  if not record: continue
+                  meta,path=record.split(b'\t',1)
+                  mode,kind,sha=meta.decode().split()
+                  result[os.fsdecode(path)]=(mode,kind,sha)
+              return result
+          upstream=tree(os.environ['UPSTREAM'])
+          allowed={}; excluded={}
+          for p,(mode,kind,sha) in upstream.items():
+              parts=p.lower().split('/')
+              if kind!='blob': reason='external submodule'
+              elif p.startswith('.github/workflows/'): reason='upstream automation'
+              elif any(x in ('enterprise','ee','commercial','proprietary') for x in parts): reason='potential restricted code'
+              elif any(x in ('logo','logos','brand','branding','fonts') for x in parts) or p.lower().endswith(('.png','.jpg','.jpeg','.gif','.webp','.svg','.ico','.mp4','.woff','.woff2','.ttf','.otf','.pdf')): reason='external asset rights not assessed'
+              else:
+                  allowed[p]=(mode,kind,sha); continue
+              excluded[p]=reason
+          s.run(['git','read-tree','--empty'],check=True)
+          payload=b''.join(f'{m} {h}\t'.encode()+os.fsencode(p)+b'\0' for p,(m,k,h) in allowed.items())
+          s.run(['git','update-index','-z','--index-info'],input=payload,check=True)
+          source_tree=git('write-tree').decode().strip()
+          assert tree(source_tree)==allowed
+          os.makedirs('.trillionai',exist_ok=True)
+          inventory=dict(upstream='https://github.com/valkey-io/valkey',upstream_commit=os.environ['UPSTREAM'],upstream_tree=git('rev-parse',os.environ['UPSTREAM']+'^{tree}').decode().strip(),upstream_tracked_entries=len(upstream),expected_source_files=len(allowed),verified_source_files=len(allowed),excluded_paths=excluded,source_tree=source_tree,expected_blobs=allowed)
+          with open('.trillionai/FILE_INVENTORY.json','w') as f: json.dump(inventory,f,indent=2)
+          PY
+          git add .trillionai/FILE_INVENTORY.json
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'Import pinned Valkey reference source'
+          git push origin HEAD:main
+          git fetch origin main
+          python3 - <<'PY'
+          import json, subprocess, os
+          inv=json.load(open('.trillionai/FILE_INVENTORY.json'))
+          actual={}
+          for r in subprocess.check_output(['git','ls-tree','-rz','origin/main']).split(b'\0'):
+              if r:
+                  meta,p=r.split(b'\t',1)
+                  actual[os.fsdecode(p)]=meta.decode().split()
+          actual.pop('.trillionai/FILE_INVENTORY.json')
+          assert actual==inv['expected_blobs'], 'Remote tree mismatch'
+          print('Verified remote source files:',len(actual))
+          PY
